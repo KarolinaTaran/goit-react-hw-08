@@ -1,10 +1,12 @@
 import css from "./ContactForm.module.css";
 import { nanoid } from "nanoid";
-import { ErrorMessage, Field, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { addContact } from "../../redux/contactsOps";
-import { selectFilteredContacts } from "../../redux/contactsSlice";
+import { addContact } from "../../redux/contacts/contactsOps";
+import { selectFilteredContacts } from "../../redux/contacts/contactsSlice";
+import { Toaster, toast } from "react-hot-toast";
+import { TextField } from "@mui/material";
 
 const ContactForm = () => {
   const contacts = useSelector(selectFilteredContacts);
@@ -26,10 +28,19 @@ const ContactForm = () => {
       .min(3, "Phonenumber must be at least 3 characters!")
       .required("Number is required"),
   });
-  const handleSubmit = (values, { resetForm }) => {
-    dispatch(addContact({ id: nanoid(), ...values }));
-    resetForm();
+
+  const handleSubmit = async (values, { resetForm, setSubmitting }) => {
+    try {
+      dispatch(addContact({ id: nanoid(), ...values }));
+      toast.success("Contact added successfully");
+      resetForm();
+    } catch (error) {
+      toast.error("Failed to add contact");
+    } finally {
+      setSubmitting(false);
+    }
   };
+
   return (
     <div>
       <Formik
@@ -37,22 +48,36 @@ const ContactForm = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ handleSubmit, isSubmitting }) => (
-          <form className={css.formWrapper} onSubmit={handleSubmit}>
-            <p className={css.title}>Name</p>
+        {({ isSubmitting }) => (
+          <Form className={css.formWrapper}>
             <Field
-              className={css.field}
               type="text"
               name="name"
               placeholder="John Smith"
+              as={TextField}
+              label="Name:"
+              fullWidth
+              InputLabelProps={{
+                style: { color: "#FB9AD1" },
+              }}
+              InputProps={{
+                style: { color: "#FFFFFF" },
+              }}
             />
             <ErrorMessage name="name" component="span" />
-            <p className={css.title}>Number</p>
             <Field
-              className={css.field}
               type="text"
               name="number"
               placeholder="123-00-19"
+              as={TextField}
+              label="Number:"
+              fullWidth
+              InputLabelProps={{
+                style: { color: "#FB9AD1" },
+              }}
+              InputProps={{
+                style: { color: "#FFFFFF" },
+              }}
             />
             <ErrorMessage name="number" component="span" />
             <button
@@ -63,9 +88,10 @@ const ContactForm = () => {
             >
               Add contact
             </button>
-          </form>
+          </Form>
         )}
       </Formik>
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };

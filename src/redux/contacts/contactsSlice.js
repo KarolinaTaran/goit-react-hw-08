@@ -40,11 +40,16 @@ export const selectFilteredContacts = createSelector(
   (state) => state.contacts.items,
   (state) => state.filters.name,
   (contacts, nameFilter) => {
-    return nameFilter
-      ? contacts.filter((contact) =>
-          contact.name.toLowerCase().includes(nameFilter.toLowerCase())
-        )
-      : contacts;
+    if (!nameFilter) {
+      return contacts;
+    }
+    const normalizedFilter = nameFilter.toLowerCase();
+    return contacts.filter(
+      (contact) =>
+        contact.name.toLowerCase().includes(normalizedFilter) ||
+        (contact.number &&
+          contact.number.toLowerCase().includes(normalizedFilter))
+    );
   }
 );
 export const selectContactsLoading = (state) => state.contacts.loading;

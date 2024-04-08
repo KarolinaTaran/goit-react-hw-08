@@ -1,6 +1,7 @@
 .formWrapper {
     display: flex;
     flex-direction: column;
+    gap: 5px;
     border: 1px solid #BB9CC0;
     padding: 30px;
     margin: 0 auto;
