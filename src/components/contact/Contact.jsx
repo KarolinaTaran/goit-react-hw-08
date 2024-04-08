@@ -3,7 +3,7 @@ import css from "./Contact.module.css";
 import { IoPersonSharp } from "react-icons/io5";
 import { BsTelephonePlusFill } from "react-icons/bs";
 import { useDispatch } from "react-redux";
-import { deleteContact, editContact } from "../../redux/contacts/contactsOps";
+import { deleteContact, editContact } from "../../redux/contacts/operations";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { toast } from "react-hot-toast";

@@ -8,7 +8,7 @@ import { useAuth } from "./hooks";
 import Modal from "react-modal";
 
 import Layout from "./components/Layout";
-import { refreshUser } from "./redux/auth/authOps";
+import { refreshUser } from "./redux/auth/operations";
 
 const Home = lazy(() => import("./pages/Home"));
 const Registration = lazy(() => import("./pages/Registration"));

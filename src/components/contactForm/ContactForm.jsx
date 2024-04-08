@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { addContact } from "../../redux/contacts/contactsOps";
+import { addContact } from "../../redux/contacts/operations";
 import { selectFilteredContacts } from "../../redux/contacts/contactsSlice";
 import { Toaster, toast } from "react-hot-toast";
 import { TextField } from "@mui/material";

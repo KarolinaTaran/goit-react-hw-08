@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { BASE_URL } from "../contacts/contactsOps";
+import { BASE_URL } from "../contacts/operations";
 
 axios.defaults.baseURL = BASE_URL;
 
