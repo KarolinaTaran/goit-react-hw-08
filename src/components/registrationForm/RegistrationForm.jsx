@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/auth/operations";
-import css from "./RegisterForm.module.css";
+import css from "./RegistrationForm.module.css";
 import { Button, TextField } from "@mui/material";
 
 const RegisterForm = () => {
